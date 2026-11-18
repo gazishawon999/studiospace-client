@@ -29,8 +29,11 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (NEVER COMMIT SECRETS)
+# Ignore every real env file; keep the documented templates.
 .env
-.env*.local
+.env.*
+!.env.example
+!.env.local.example
 
 # vercel
 .vercel
