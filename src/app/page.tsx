@@ -1,135 +1,111 @@
-"use client";
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import { ArrowRight } from "lucide-react";
+import { ButtonLink } from "@/components/ui/button";
+import { Container } from "@/components/shared/container";
+import { LoadingSkeleton } from "@/components/shared/loading-skeleton";
+import { SectionHeading } from "@/components/shared/section-heading";
+import { BookingSteps } from "@/components/home/booking-steps";
+import { CategoryGrid } from "@/components/home/category-grid";
+import { FeaturedStudios } from "@/components/home/featured-studios";
+import { HeroSlider } from "@/components/home/hero-slider";
+import { HostGuarantee } from "@/components/home/host-guarantee";
 
-import { useEffect, useState } from "react";
-import {
-  Aperture,
-  CheckCircle2,
-  Database,
-  RefreshCw,
-  Server,
-  AlertCircle,
-} from "lucide-react";
-import { toast } from "sonner";
-import { apiFetch } from "@/lib/api";
-import type { HealthCheckResponse } from "@/types";
-import { Button } from "@/components/ui/button";
+export const dynamic = "force-dynamic";
 
-export default function PhaseOneStatusPage() {
-  const [health, setHealth] = useState<HealthCheckResponse | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+const OG_IMAGE =
+  "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&h=630&q=80";
 
-  const checkBackendHealth = async (showToast = false) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await apiFetch<HealthCheckResponse>("/health");
-      setHealth(response);
-      if (showToast) {
-        toast.success(
-          `Connected to ${response.database.name} (${response.database.latencyMs}ms)`,
-        );
-      }
-    } catch (err) {
-      const message =
-        err instanceof Error
-          ? err.message
-          : "Could not reach studiospace-server. Ensure it is running on port 5000.";
-      setError(message);
-      if (showToast) {
-        toast.error(message);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+export const metadata: Metadata = {
+  title: {
+    absolute:
+      "StudioSpace | Book Creative Studios, Sound Stages & Production Spaces",
+  },
+  description:
+    "Discover and book peer-to-peer photo studios, sound stages, podcast lounges, music suites, and art workshops by the hour. Compare rates, locations, and amenities on StudioSpace.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "StudioSpace",
+    title: "StudioSpace | Book the room your next idea deserves",
+    description:
+      "A peer-to-peer marketplace for photo studios, sound stages, podcast lounges, music suites, and art workshops.",
+    images: [
+      {
+        url: OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: "Creative production space listed on StudioSpace",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "StudioSpace | Book the room your next idea deserves",
+    description:
+      "Find and book creative production spaces by the hour, or list your own studio for creatives who need it.",
+    images: [OG_IMAGE],
+  },
+};
 
-  useEffect(() => {
-    checkBackendHealth(false);
-  }, []);
-
+export default function HomePage() {
   return (
-    <main className="min-h-screen flex items-center justify-center p-6 bg-background">
-      <div className="max-w-2xl w-full rounded-2xl border border-border bg-card p-8 shadow-sm space-y-6">
-        <div className="flex items-center justify-between border-b border-border pb-6">
-          <div className="flex items-center gap-3">
-            <div className="h-11 w-11 rounded-xl bg-primary flex items-center justify-center text-primary-foreground">
-              <Aperture className="h-6 w-6" />
-            </div>
-            <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-primary font-semibold">
-                Phase 01 • Foundation Ready
-              </span>
-              <h1 className="text-2xl font-bold tracking-tight">
-                StudioSpace Architecture Check
-              </h1>
-            </div>
-          </div>
-          <Button
-            onClick={() => checkBackendHealth(true)}
-            disabled={loading}
-            variant="outline"
-            size="sm"
-            className="gap-2"
+    <>
+      <HeroSlider />
+
+      <section className="section-space" aria-labelledby="featured-studios-title">
+        <Container>
+          <SectionHeading
+            eyebrow="Featured studios"
+            title="Spaces our community is booking."
+            description="Six top-rated spaces pulled live from the StudioSpace studio collection — updated whenever a host publishes a new listing."
+            titleId="featured-studios-title"
+            action={
+              <ButtonLink href="/studios" variant="outline">
+                Browse all studios
+                <ArrowRight className="size-4" aria-hidden="true" />
+              </ButtonLink>
+            }
+          />
+
+          <Suspense
+            fallback={
+              <LoadingSkeleton
+                variant="studio-card"
+                count={6}
+                className="mt-10"
+              />
+            }
           >
-            <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
-            Ping API
-          </Button>
-        </div>
+            <FeaturedStudios />
+          </Suspense>
+        </Container>
+      </section>
 
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Validating connectivity between{" "}
-          <strong className="text-foreground">studiospace-client</strong>{" "}
-          (Next.js App Router + TypeScript) and{" "}
-          <strong className="text-foreground">studiospace-server</strong>{" "}
-          (Express.js + MongoDB Atlas).
-        </p>
+      <section
+        className="section-space border-y border-border bg-surface/60"
+        aria-labelledby="studio-categories-title"
+      >
+        <Container>
+          <SectionHeading
+            eyebrow="Browse by studio category"
+            title="Every discipline has a different footprint."
+            description="Start with the room type that fits the work, then narrow by rate, location, and amenities inside the studio directory."
+            titleId="studio-categories-title"
+          />
 
-        {loading ? (
-          <div className="rounded-xl border border-border bg-muted/40 p-6 flex items-center gap-3 text-sm text-muted-foreground">
-            <RefreshCw className="h-5 w-5 animate-spin text-primary" />
-            Checking Express REST API & MongoDB Atlas connection...
+          <div className="mt-10">
+            <CategoryGrid />
           </div>
-        ) : error ? (
-          <div className="rounded-xl border border-destructive/40 bg-destructive/10 p-5 space-y-2">
-            <div className="flex items-center gap-2 text-destructive font-semibold text-sm">
-              <AlertCircle className="h-5 w-5" />
-              Backend Connection Error
-            </div>
-            <p className="text-xs text-muted-foreground font-mono">{error}</p>
-          </div>
-        ) : health ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="rounded-xl border border-border bg-secondary/40 p-4 space-y-1">
-              <div className="flex items-center gap-2 text-xs font-mono uppercase text-muted-foreground">
-                <Server className="h-4 w-4 text-primary" />
-                Express API Status
-              </div>
-              <p className="text-lg font-semibold flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-emerald-600" />
-                {health.status.toUpperCase()} ({health.environment})
-              </p>
-              <p className="text-xs font-mono text-muted-foreground">
-                Uptime: {health.uptimeSeconds}s
-              </p>
-            </div>
+        </Container>
+      </section>
 
-            <div className="rounded-xl border border-border bg-secondary/40 p-4 space-y-1">
-              <div className="flex items-center gap-2 text-xs font-mono uppercase text-muted-foreground">
-                <Database className="h-4 w-4 text-primary" />
-                MongoDB Atlas
-              </div>
-              <p className="text-lg font-semibold flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-emerald-600" />
-                {health.database.name}
-              </p>
-              <p className="text-xs font-mono text-muted-foreground">
-                Ping Latency: {health.database.latencyMs}ms
-              </p>
-            </div>
-          </div>
-        ) : null}
-      </div>
-    </main>
+      <BookingSteps />
+
+      <HostGuarantee />
+    </>
   );
 }
