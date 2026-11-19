@@ -1,49 +1,53 @@
 # StudioSpace — Frontend
 
-\<p align="center">   \<h2 align="center">StudioSpace\</h2>   \<p align="center">     A Modern Studio Booking & Management Platform   \</p> \</p>
+<p align="center">
 
-\<p align="center">   \<img src="[https://img.shields.io/badge/Next.js-Framework-black?logo=next.js](https://img.shields.io/badge/Next.js-Framework-black?logo=next.js)" />   \<img src="[https://img.shields.io/badge/TypeScript-Language-blue?logo=typescript](https://img.shields.io/badge/TypeScript-Language-blue?logo=typescript)" />   \<img src="[https://img.shields.io/badge/Tailwind_CSS-Styling-38B2AC?logo=tailwind-css](https://img.shields.io/badge/Tailwind_CSS-Styling-38B2AC?logo=tailwind-css)" />   \<img src="[https://img.shields.io/badge/Authentication-Better_Auth-orange](https://img.shields.io/badge/Authentication-Better_Auth-orange)" /> \</p>
+  <img src="https://img.shields.io/badge/Next.js-Framework-black?logo=next.js" alt="Next.js" />
+  <img src="https://img.shields.io/badge/TypeScript-Language-blue?logo=typescript" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-Styling-38B2AC?logo=tailwind-css" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Authentication-Better_Auth-orange" alt="Better Auth" />
 
-## Overview
+</p>
 
-**StudioSpace** is a modern, responsive studio booking platform designed to connect creative professionals with suitable studio spaces.
+**StudioSpace** is a modern studio booking and management platform designed to connect creative professionals with suitable studio spaces.
 
-The platform allows users to explore different studios, view detailed studio information, check availability, and book their preferred spaces. Studio owners can manage their studio listings, while users can track and manage their bookings through a personalized dashboard.
+The platform allows users to discover studios, explore studio details, check booking information, and reserve their preferred creative spaces. It provides a smooth and responsive user experience with modern UI components, secure authentication, and an intuitive dashboard.
 
-The frontend provides a clean, intuitive, and user-friendly experience with responsive layouts, modern UI components, and secure authentication integration.
+Whether someone needs a photography studio, film stage, podcast lounge, music suite, or workshop space, StudioSpace makes the studio discovery and booking process easier.
 
-## Key Features
+## ✨ Key Features
 
-- **Modern Landing Page:** A visually appealing homepage introducing the platform and its services.
-- **Studio Exploration:** Browse and explore available studios.
+- **Modern Landing Page:** Clean and visually appealing homepage.
+- **Studio Exploration:** Browse and discover available studio spaces.
 - **Category Filtering:** Filter studios by Photo Studio, Film Stage, Podcast Lounge, Music Suite, and Workshop.
-- **Studio Details:** View detailed information, images, pricing, capacity, and location.
-- **Studio Booking:** Book studio spaces based on preferred dates and time slots.
-- **Authentication:** User registration, login, and Google authentication through Better Auth.
-- **Protected Routes:** Restrict access to authenticated-only pages.
+- **Studio Details:** View studio images, descriptions, locations, capacity, and pricing.
+- **Studio Booking:** Submit booking requests for preferred studio spaces.
+- **User Authentication:** Registration and login with Better Auth.
+- **Google Authentication:** Google OAuth integration when configured.
+- **Protected Routes:** Restrict access to authenticated users.
 - **My Bookings:** View and manage personal booking records.
-- **Studio Management:** Create and manage studio listings.
+- **Studio Management:** Add and manage studio listings.
 - **Dashboard:** View booking activity and studio-related statistics.
-- **Theme Support:** Light and dark theme experience.
+- **Dark & Light Theme:** Switch between different visual themes.
 - **Responsive Design:** Optimized for desktop, tablet, and mobile devices.
-- **Notifications:** User-friendly feedback through toast notifications.
+- **Toast Notifications:** Interactive feedback for user actions.
 
-## Technology Stack
+## 🛠️ Technology Stack
 
-| Technology                | Purpose                                 |
-| ------------------------- | --------------------------------------- |
-| Next.js                   | React framework and application routing |
-| React                     | User interface development              |
-| TypeScript                | Type-safe development                   |
-| Tailwind CSS              | Utility-first styling                   |
-| shadcn/ui                 | Reusable UI components                  |
-| Better Auth               | Authentication client                   |
-| React Context / Providers | Application-wide state and providers    |
-| React Toastify            | Toast notifications                     |
-| Lucide React              | Icons                                   |
-| Fetch API                 | Backend API communication               |
+| Technology | Purpose |
+|---|---|
+| Next.js | React framework and application routing |
+| React | User interface development |
+| TypeScript | Type-safe development |
+| Tailwind CSS | Utility-first styling |
+| shadcn/ui | Reusable UI components |
+| Better Auth | Authentication client |
+| React Context / Providers | Application-wide providers |
+| React Toastify | Toast notifications |
+| Lucide React | Icons |
+| Fetch API | Backend API communication |
 
-## Project Structure
+## 📁 Project Structure
 
 ```text
 studiospace-client/
@@ -52,7 +56,6 @@ studiospace-client/
 │
 ├── src/
 │   ├── app/
-│   │   ├── (auth)/
 │   │   ├── dashboard/
 │   │   ├── explore/
 │   │   ├── login/
@@ -85,9 +88,11 @@ studiospace-client/
 └── README.md
 ```
 
-*Note: The structure above is a representative overview. Some folders and files may vary depending on the final implementation.*
+*Note: This is a representative project structure. Some folders and filenames may vary depending on the implementation.*
 
-## Installation & Setup
+## 🚀 Installation & Setup
+
+Follow these steps to run the frontend application locally.
 
 ### 1. Clone the Repository
 
@@ -109,31 +114,31 @@ npm install
 
 ### 4. Configure Environment Variables
 
-Create a `.env.local` file in the project root.
+Create a `.env.local` file in the root directory of the project.
+
+Add the following environment variable:
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5000/api
 ```
 
-Add any additional public application or authentication URL variables required by your Better Auth client configuration.
+Add any other environment variables required by your Better Auth client configuration.
 
-**Important:** Never expose private API keys, authentication secrets, or server credentials through `NEXT_PUBLIC_` variables.
+> **Important:** Never expose private API keys, JWT secrets, or server credentials through `NEXT_PUBLIC_` variables.
 
-### 5. Start the Development Server
+### 5. Run the Development Server
 
 ```bash
 npm run dev
 ```
 
-The application will be available at:
+The frontend application will be available at:
 
-```text
-http://localhost:3000
-```
+**http://localhost:3000**
 
-## Backend Integration
+## 🔗 Backend Integration
 
-The frontend communicates with the StudioSpace backend through REST APIs.
+The frontend communicates with the StudioSpace backend through RESTful APIs.
 
 **Default API Base URL:**
 
@@ -141,41 +146,45 @@ The frontend communicates with the StudioSpace backend through REST APIs.
 http://localhost:5000/api
 ```
 
-The application uses credentialed requests to support secure cookie-based authentication.
+The frontend uses credentialed requests to support secure cookie-based authentication.
 
 The authentication architecture integrates Better Auth sessions with the Express API's JWT authentication system.
 
-## Available Scripts
+### Backend Repository
 
-| Command            | Description                  |
-| ------------------ | ---------------------------- |
-| `npm run dev`      | Start development server     |
-| `npm run build`    | Build production application |
-| `npm run start`    | Start production server      |
-| `npm run lint`     | Run ESLint                   |
-| `npx tsc --noEmit` | Check TypeScript types       |
+[StudioSpace Backend Repository](<YOUR_SERVER_REPOSITORY_URL>)
 
-## Security
+## 📜 Available Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start development server |
+| `npm run build` | Build production application |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+| `npx tsc --noEmit` | Check TypeScript types |
+
+## 🔐 Security
 
 - Protected pages require authentication.
 - Authentication credentials are not stored in localStorage.
-- HTTPOnly cookies are used for the Express API authentication token.
-- API requests follow the configured CSRF and CORS security rules.
-- Redirect destinations are validated to prevent unsafe external redirects.
+- HTTPOnly cookies are used for Express API authentication.
+- API requests follow configured CSRF and CORS security rules.
+- Internal redirect destinations are validated to prevent unsafe redirects.
+- Sensitive environment variables are kept outside the frontend bundle.
 
-## Development Notes
+## 💻 Development Notes
 
+- Make sure the backend server is running before testing API-dependent features.
+- Configure the correct API URL for local development and production.
 - Keep environment variables private.
-- Ensure the backend server is running before testing API-dependent features.
-- Use the correct API base URL for local development and production.
 - Do not commit `.env.local` or other secret-containing files.
+- Follow the existing component and project structure when adding new features.
 
-## License
+## 📄 License
 
 This project was developed for academic and educational purposes.
 
 ---
 
-\<p align="center">
-&#x20; Built with ❤️ using Next.js, TypeScript, and Tailwind CSS.
-\</p>
+**Built with ❤️ using Next.js, TypeScript, and Tailwind CSS.**
